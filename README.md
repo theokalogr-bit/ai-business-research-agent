@@ -2,6 +2,8 @@
 
 > A multi-agent AI system that researches any company and produces a complete business intelligence brief — competitive analysis, SWOT, and a specific outreach angle — in minutes.
 
+> **Note:** This is a portfolio project. To run it you need your own API keys (`ANTHROPIC_API_KEY` required). No keys are included in this repo — your credentials are never at risk.
+
 ## What This Does
 
 Given a company name, three specialized AI agents collaborate sequentially to produce a structured intelligence brief that would take a human analyst 2–3 hours to produce manually. Each agent has a distinct role and passes structured data to the next. The final output includes company overview, competitive landscape, SWOT analysis, and a tailored outreach recommendation.
@@ -75,14 +77,17 @@ streamlit run app.py
 
 **Input:** Company: `Skroutz` / Sector: `E-commerce` / Country: `Greece`
 
-**Sample insights from generated brief:**
-- GMV ~$1.8B vs reported revenue of $27.2M — calculated take rate of ~1.5%, flagged as anomalous
-- Named Head of Commercial (Yiota Tzavara) as specific outreach target
-- Identified Temu as existential threat with real data: ~40% of Greek e-commerce turnover (€529–627M, 2024)
-- Cyprus expansion showing 97% YoY Black Friday growth — identified as international expansion template
-- Specific outreach angle: *"Lead with merchant catalog normalization and dynamic pricing AI — Skroutz's growth depends on merchant onboarding velocity, which is a manual process today."*
+**[View the full generated brief →](skroutz_20260415_0352.md)**
 
-See [`skroutz_20260415_0352.md`](skroutz_20260415_0352.md) for the full generated brief.
+Selected highlights from the output:
+
+- Calculated take rate of ~1.5% ($27.2M revenue vs ~$1.8B GMV) — flagged as anomalous, signaling either heavy reinvestment or revenue recognition conservatism
+- Named Head of Commercial (Yiota Tzavara) as the specific outreach decision-maker
+- Quantified the Temu threat: Chinese platforms captured ~40% of Greek e-commerce turnover (€529–627M, 2024)
+- Identified Cyprus as international expansion template after 97% YoY Black Friday growth
+- Specific outreach angle: *"Lead with merchant catalog normalization and dynamic pricing AI — Skroutz's growth depends on merchant onboarding velocity, which is a manual process today"*
+
+This brief was generated in a single pipeline run with no manual editing.
 
 ## Use Cases
 
