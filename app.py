@@ -168,6 +168,10 @@ if submitted:
         st.error("ANTHROPIC_API_KEY not found. Add it to your .env file.")
         st.stop()
 
+    if not os.getenv("TAVILY_API_KEY"):
+        st.error("TAVILY_API_KEY not found. Add it to your .env file.")
+        st.stop()
+
     status_placeholder = st.empty()
     progress_bar = st.progress(0)
     progress_steps = {

@@ -71,6 +71,7 @@ streamlit run app.py
 | Variable | Required | Description |
 |---|---|---|
 | `ANTHROPIC_API_KEY` | Yes | Your Anthropic API key |
+| `TAVILY_API_KEY` | Yes | Your Tavily API key |
 
 ## Example Output
 
