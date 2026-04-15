@@ -259,4 +259,4 @@ if submitted:
 
 # ── Footer ────────────────────────────────────────────────────────────────────
 st.divider()
-st.caption("◈ AI Business Research Agent  ·  Claude claude-sonnet-4-6  ·  Multi-agent orchestration  ·  Tavily web search")
+st.caption("◈ AI Business Research Agent  ·  Claude claude-sonnet-4-6  ·  Multi-agent orchestration  ·  Web search")

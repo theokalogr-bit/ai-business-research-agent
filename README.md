@@ -43,7 +43,7 @@ Each agent runs an autonomous agentic loop — it decides what to search, runs m
 | LLM | Claude claude-sonnet-4-6 (Anthropic) |
 | Agent Framework | Custom Python orchestrator (no LangChain) |
 | Tool Use | Claude API native tool use |
-| Web Search | Tavily API (falls back to DuckDuckGo) |
+| Web Search | DuckDuckGo |
 | UI | Streamlit |
 | Language | Python 3.10+ |
 
@@ -71,7 +71,6 @@ streamlit run app.py
 | Variable | Required | Description |
 |---|---|---|
 | `ANTHROPIC_API_KEY` | Yes | Your Anthropic API key |
-| `TAVILY_API_KEY` | No | Tavily search API key — better results than DuckDuckGo fallback |
 
 ## Example Output
 
