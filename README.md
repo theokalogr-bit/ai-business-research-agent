@@ -1,111 +1,71 @@
 # AI Business Research Agent
 
-> A multi-agent AI system that researches any company and produces a complete business intelligence brief — competitive analysis, SWOT, and a specific outreach angle — in minutes.
+> A multi-agent AI system that researches any company and generates a full business intelligence brief — in minutes, not hours.
 
-> **Note:** This is a portfolio project. To run it you need your own API keys (`ANTHROPIC_API_KEY` required). No keys are included in this repo — your credentials are never at risk.
+Most sales teams and consultants spend 2-3 hours manually researching a company before an important meeting or pitch. This system does it in under 5 minutes. Give it a company name and it returns a complete brief: background, competitors, SWOT analysis, and outreach recommendations — ready to use.
 
-## What This Does
+## Demo
 
-Given a company name, three specialized AI agents collaborate sequentially to produce a structured intelligence brief that would take a human analyst 2–3 hours to produce manually. Each agent has a distinct role and passes structured data to the next. The final output includes company overview, competitive landscape, SWOT analysis, and a tailored outreach recommendation.
-
-Built to demonstrate production-grade multi-agent orchestration using the Claude API with real-time web search and tool use.
+> Demo GIF coming soon — see [Setup](#setup) to run locally.
 
 ## How It Works
 
+Three sequential agents, each building on the last:
+
 ```
-Input: Company Name + optional Sector / Country
-         │
-         ▼
-┌─────────────────────┐
-│  Agent 1: Research  │  Searches the web for company facts, recent news, leadership
-└────────┬────────────┘
-         │ Structured JSON
-         ▼
-┌──────────────────────────┐
-│  Agent 2: Competitor     │  Identifies 3–5 direct competitors, maps market position
-└────────┬─────────────────┘
-         │ Structured JSON
-         ▼
-┌──────────────────────────┐
-│  Agent 3: Analyst        │  Synthesizes everything → full brief + SWOT + outreach angle
-└────────┬─────────────────┘
-         │
-         ▼
-Output: Markdown intelligence brief (viewable in UI + downloadable)
+Company Name
+     │
+     ▼
+Research Agent → web search → company facts, news, leadership
+     │
+     ▼
+Competitor Agent → identifies 3-5 direct competitors, maps positioning
+     │
+     ▼
+Analyst Agent → synthesizes into full brief with SWOT + outreach recommendations
+     │
+     ▼
+Streamlit UI → formatted, readable output
 ```
 
-Each agent runs an autonomous agentic loop — it decides what to search, runs multiple queries, and returns structured data before handing off to the next agent.
+No LangChain. Pure Python orchestration — transparent, fast, and easy to modify.
 
 ## Tech Stack
 
-| Component | Technology |
-|---|---|
-| LLM | Claude claude-sonnet-4-6 (Anthropic) |
-| Agent Framework | Custom Python orchestrator (no LangChain) |
-| Tool Use | Claude API native tool use |
-| Web Search | DuckDuckGo |
-| UI | Streamlit |
-| Language | Python 3.10+ |
+| Component | Role |
+|-----------|------|
+| Claude Sonnet 4.6 | All three agents — research, analysis, synthesis |
+| DuckDuckGo Search | Web search (no API key needed) |
+| Tavily API | Optional — improves search result quality |
+| Streamlit | Browser UI |
+| Python 3.10+ | Orchestration layer |
 
 ## Setup
 
 ```bash
-# 1. Clone
 git clone https://github.com/theokalogr-bit/ai-business-research-agent
 cd ai-business-research-agent
-
-# 2. Install dependencies
 pip install -r requirements.txt
-
-# 3. Configure environment
 cp .env.example .env
-# Edit .env — add your ANTHROPIC_API_KEY (required)
-# Optionally add TAVILY_API_KEY for better search results
-
-# 4. Run
+# Add your ANTHROPIC_API_KEY (optional: TAVILY_API_KEY)
 streamlit run app.py
 ```
 
-### Environment Variables
+## Example
 
-| Variable | Required | Description |
-|---|---|---|
-| `ANTHROPIC_API_KEY` | Yes | Your Anthropic API key |
-| `TAVILY_API_KEY` | Yes | Your Tavily API key |
+**Input:** Skroutz (Greek e-commerce platform)
 
-## Example Output
-
-**Input:** Company: `Skroutz` / Sector: `E-commerce` / Country: `Greece`
-
-**[View the full generated brief →](skroutz_20260415_0352.md)**
-
-Selected highlights from the output:
-
-- Calculated take rate of ~1.5% ($27.2M revenue vs ~$1.8B GMV) — flagged as anomalous, signaling either heavy reinvestment or revenue recognition conservatism
-- Named Head of Commercial (Yiota Tzavara) as the specific outreach decision-maker
-- Quantified the Temu threat: Chinese platforms captured ~40% of Greek e-commerce turnover (€529–627M, 2024)
-- Identified Cyprus as international expansion template after 97% YoY Black Friday growth
-- Specific outreach angle: *"Lead with merchant catalog normalization and dynamic pricing AI — Skroutz's growth depends on merchant onboarding velocity, which is a manual process today"*
-
-This brief was generated in a single pipeline run with no manual editing.
+**Output:**
+- Company overview, revenue estimates, key executives
+- 4 direct competitors with positioning analysis
+- SWOT analysis
+- Recommended outreach angle for sales or partnership
 
 ## Use Cases
 
-- **Sales & BD teams** — research any prospect company before a call, in minutes instead of hours
-- **AI automation consultants** — generate client research briefs as part of pre-engagement discovery
-- **Investors & analysts** — quick competitive intelligence on any company in any market
-
-## Architecture Decisions
-
-**Why no LangChain?**
-Custom orchestrator keeps every agent interaction explicit and readable. Better for debugging, easier to extend, and more impressive to technical reviewers than a black-box framework.
-
-**Why sequential agents instead of parallel?**
-Agent 2 depends on Agent 1's output. Agent 3 depends on both. The dependency chain is real — sequential execution preserves data quality through the pipeline.
-
-**Why Tavily with DuckDuckGo fallback?**
-Tavily gives significantly better business research results. DuckDuckGo requires no API key and serves as a free fallback, making the system usable out of the box.
+- **Sales teams** — research any prospect before a call, automatically
+- **Consultants** — generate client briefings without manual research
+- **Investors** — rapid company screening before deeper due diligence
 
 ---
-
-Built by [Theo](https://github.com/theokalogr-bit) — AI automation consultant based in Greece.
+Built by [Theo](https://github.com/theokalogr-bit) — AI automation consultant based in Athens, Greece.
